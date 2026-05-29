@@ -1,32 +1,70 @@
 {
-  "name": "audio-to-tab-converter",
+  "name": "audio-to-tab-app",
   "version": "1.0.0",
-  "description": "AI-powered tool to convert audio to musical notation",
-  "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "client": "cd client && npm start",
-    "install-all": "npm install && cd client && npm install"
-  },
-  "keywords": [
-    "audio",
-    "music",
-    "tab",
-    "notation",
-    "pitch-detection"
-  ],
+  "description": "AI-powered Audio to Musical Notation Converter",
+  "main": "main.js",
+  "homepage": "./",
   "author": "hai1972",
   "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "react-start": "cd client && npm start",
+    "react-build": "cd client && npm run build",
+    "build": "npm run react-build && electron-builder",
+    "build:win": "npm run react-build && electron-builder --win",
+    "build:portable": "npm run react-build && electron-builder --win --portable",
+    "build:all": "npm run react-build && electron-builder -mwl",
+    "install-all": "npm install && cd client && npm install && cd .."
+  },
   "dependencies": {
+    "electron-squirrel-startup": "^1.1.2",
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "multer": "^1.4.5-lts.1",
-    "axios": "^1.6.0",
     "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "electron": "^latest",
+    "electron-builder": "^latest",
+    "electron-is-dev": "^2.0.0",
+    "concurrently": "^8.0.0",
+    "wait-on": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.audio-to-tab.app",
+    "productName": "Audio to Tab Converter",
+    "files": [
+      "main.js",
+      "preload.js",
+      "build/**/*",
+      "services/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Audio to Tab Converter"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.exe"
+    }
   }
 }
