@@ -1,11 +1,11 @@
 node_modules/
 uploads/
+dist/
+build/
 *.log
 .DS_Store
 .env
 .env.local
-build/
-dist/
 .cache/
 .parcel-cache/
 
@@ -17,3 +17,7 @@ dist/
 
 # OS
 Thumbs.db
+
+# Electron
+**/electron-cache/
+out/
