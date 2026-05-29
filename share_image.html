@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio to Tab Converter - Share Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        
+        .canvas-container {
+            position: relative;
+        }
+        
+        canvas {
+            display: block;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-container">
+        <canvas id="shareImage" width="1200" height="630"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('shareImage');
+        const ctx = canvas.getContext('2d');
+
+        // 绘制背景渐变
+        const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 1200, 630);
+
+        // 绘制装饰圆形
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.beginPath();
+        ctx.arc(200, 150, 200, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(1000, 500, 250, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 绘制主标题
+        ctx.font = 'bold 80px Arial, sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText('🎵', 600, 80);
+        ctx.font = 'bold 72px Arial, sans-serif';
+        ctx.fillText('Audio to Tab', 600, 160);
+
+        // 绘制副标题
+        ctx.font = '44px Arial, sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.fillText('Convert Audio to Musical Notation', 600, 270);
+
+        // 绘制功能标签
+        const features = ['🎤 Audio Upload', '🎵 Pitch Detection', '📊 Visualization'];
+        ctx.font = '32px Arial, sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        
+        const startX = 150;
+        const spacing = 330;
+        features.forEach((feature, index) => {
+            ctx.fillText(feature, startX + (index * spacing), 420);
+        });
+
+        // 绘制底部文案
+        ctx.font = 'bold 48px Arial, sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('Powered by AI', 600, 500);
+
+        ctx.font = '28px Arial, sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.fillText('github.com/hai1972/ai', 600, 560);
+
+        // 下载图片
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.download = 'share_image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }, 500);
+    </script>
+</body>
+</html>
