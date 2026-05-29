@@ -1,0 +1,19 @@
+node_modules/
+uploads/
+*.log
+.DS_Store
+.env
+.env.local
+build/
+dist/
+.cache/
+.parcel-cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
